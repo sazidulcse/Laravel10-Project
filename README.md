@@ -1,0 +1,224 @@
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
+
+
+
+## Learning Laravel
+#1-Laravel Url Parameter---------------------------------------------------
+
+
+//route section
+Route::get('/hello/{name}/{age}',[DemoController::class, 'DemoAction']);
+
+//controller section
+function DemoAction(Request $request):string{
+        $name=$request->name;
+        $age=$request->age;
+        return "my name is ${name}  my age ${age}";
+    }
+#or-------body
+ function DemoAction(Request $request):string{
+        $name=$request->input('name');
+        $age=$request->input('age');
+        return "my name is ${name}  my age ${age}";
+
+#or--------- body all
+function DemoAction(Request $request):array{
+//  
+        return $request->input();
+    }
+
+#heder all
+   function DemoAction(Request $request):array{
+
+        return $request->header();
+    }
+
+
+
+
+
+#2-Laravel-URL-BODY-HEDER DATA ACCES
+  function DemoAction(Request $request):array{
+        //heder data access
+        $myname=$request->header('myname');
+        $myroll=$request->header('myroll');
+        $myage=$request->header('myage');
+        
+        //url data
+        $myadd=$request->myadd;
+        
+        //body data
+        $gfname=$request->input('gfname');
+        $gfroll=$request->input('gfroll');
+        $gfage=$request->input('gfage');
+        $gfadd=$request->gfadd;
+
+        return array(
+            'myname'=>$myname,
+            'myroll'=>$myroll,
+            'myage'=>$myage,
+            'myadd'=>$myadd,
+            'gfname'=>$gfname,
+            'gfroll'=>$gfroll,
+            'gfage'=>$gfage,
+            'gfadd'=>$gfadd
+        );
+
+#3-LARAVEL ORIGINAL FILE
+ function DemoAction(Request $request):array{
+        $fname=$request->file('fname');
+        $filesize=filesize($fname);
+        $filetype=filetype($fname);
+        $fileoriginal=$fname->getClientOriginalName();
+        $filetemp=$fname->getFilename();
+        $fileextension=$fname->extension();
+        return array(
+            'filesize'=>$filesize,
+            'filetype'=>$filetype,
+            'fileoriginal'=>$fileoriginal,
+            'filetemp'=>$filetemp,
+            'fileextension'=>$fileextension,
+        );
+
+#4-LARAVEL PHOTO UPLOAD
+  function DemoAction(Request $request):bool{
+
+    $photofile=$request->file('mypic');
+    $photofile->storeAs('upload',$photofile->getClientOriginalName());
+    $photofile->move(public_path('store'),$photofile->getClientOriginalName());
+    return true;
+
+#5-LARAVEL COOKIES
+ function DemoAction(Request $request):string{
+     return $request->cookie('Cookie_1');
+
+
+#6-LARAVEL JSON RESPONSE
+
+
+   function DemoAction(Request $request):JsonResponse{
+        $code =333;
+        $content=array(
+            'name'=>'szidul rahman',
+            'city'=>'khulna',
+        );
+        return response()->json($content,$code);
+
+#7-Json Response an status code create
+
+ function index(Request $request):JsonResponse{
+
+        $code =201;
+        $content=array('name'=>'sazidul','roll'=>435372, 'age'=>'23');
+        return response()->json($content,$code);
+    }
+
+
+
+
+ 
+#8-LARAVEL PICSHOW AND DOWNLOAD
+
+function picshow()
+    {
+        $filepath = "store/person.jpg";
+        return response()->file($filepath);
+    }
+
+    function picdownload()
+    {
+        $filepath = "store/person.jpg";
+        return response()->download($filepath);
+    }
+}
+#9-LARAVEL COOKIE SET
+ function Mycookie()
+    {
+        $name = "token";
+        $value = "123xyz";
+        $minutes = 120;
+        $path = "/";
+        $domain = $_SERVER['SERVER_NAME'];
+        $secure = false;
+        $httponly = true;
+
+        return response('hi')->cookie(
+            $name,
+            $value,
+            $minutes,
+            $path,
+            $domain,
+            $secure,
+            $httponly
+        );
+    }
+
+#Laravel Url to controller to vue data
+
+ function index(Request $request){
+
+        $num1=$request->num1;
+        $num2=$request->num2;
+        $total =$num1+$num2;
+        $data =['sum'=>$total];
+        return view('myview',$data);
+
+
+    }
+
+#Laravul Multiple data show in Array
+//controller code 
+ function index(Request $request){
+
+        $num1=$request->num1;
+        $num2=$request->num2;
+        $total =$num1+$num2;
+        
+        $data =['sum'=>$total];
+        return view('myview',$data);
+
+
+    }
+//blade code 
+<div>
+    <p>Total value :{{$sum}} </p>
+    
+</div>
+
+
+#laravel foreach array data
+
+ function index(Request $request){
+
+       $data=[
+        ['fname'=>'sazidul', 'lname'=>'rahman','age'=>22],
+        ['fname'=>'farhan', 'lname'=>'islam','age'=>42],
+        ['fname'=>'john', 'lname'=>'doe','age'=>24],
+        ['fname'=>'joram', 'lname'=>'natad','age'=>44],
+        ['fname'=>'arif', 'lname'=>'billah','age'=>32]
+       ];
+
+       return view('myview',['users'=>$data]);
+
+<div>
+   @foreach ($users as $user)
+   <p>First Name: {{$user['fname']}} Last name :  {{$user['lname']}} Age :  {{$user['ageA']}}</p>
+       
+   @endforeach
+    
+</div>
+
+
+
+
+      
+
+
+
