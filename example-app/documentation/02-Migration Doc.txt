@@ -13,3 +13,29 @@
             $table->string('pincode')->default('1234')->invisible();
             $table->timestamp('create_date')->useCurrent();
             $table->timestamp('update_date')->useCurrent()->useCurrentOnUp
+
+
+#Rename Table last_name
+
+1.crate rename migration file
+[php artisan make:migration rename_profiles]
+
+2. [Schema::rename('profiles','new_profiles');]
+
+#Delete migration table
+[php artisan make:migration drop_new_profiles_table]
+[Schema::dropIfExists('new_profiles);]
+
+#How to Add colum to specific file
+1. [php artisan make:migration add_column_to_profiles]
+
+ 2. Schema::table('profiles', function (Blueprint $table) {
+
+            $table->after('name',function(Blueprint $table){
+                $table->string('nickname',10)->nullable();
+                $table->string('age',20)->default('boyosbolbo na');
+            });
+
+
+53-last dekchi
+
