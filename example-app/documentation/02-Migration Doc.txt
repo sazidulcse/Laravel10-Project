@@ -1,0 +1,15 @@
+#LARAVEL MIGRATION
+
+
+#1 create migration file->
+
+[ php artisan make:migration create_profiles ]
+
+            $table->id();
+            $table->string('email')->unique();
+            $table->string('first_name',50);
+            $table->longText('last_name')->nullable();
+            $table->string('country')->default('banglades');
+            $table->string('pincode')->default('1234')->invisible();
+            $table->timestamp('create_date')->useCurrent();
+            $table->timestamp('update_date')->useCurrent()->useCurrentOnUp
