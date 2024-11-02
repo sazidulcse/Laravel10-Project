@@ -37,5 +37,31 @@
             });
 
 
-53-last dekchi
+#how to rename any tables to column name chnage 
+//craate new migration
+1.php artisan make:migration rename_column_to_profiles
+2.
+  Schema::table('profiles', function (Blueprint $table) {
+            //
+
+            $table->renameColumn('nickname','dakname');
+        });
+
+
+
+
+
+        #drop any column 
+
+        1.php artisan make:migration drop_column_from_profiles
+
+        2.
+        Schema::table('profiles', function (Blueprint $table) {
+            //
+            $table->dropColumn(['city']);
+            
+        });
+
+        
+
 
