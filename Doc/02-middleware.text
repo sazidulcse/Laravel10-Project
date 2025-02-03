@@ -1,0 +1,18 @@
+
+1. Route File:
+
+Route::get('/{code}',[HomeController::class,'index'])->name('home')
+->middleware([ActionMiddleware::class]);
+
+2.Middle File:
+
+public function handle(Request $request, Closure $next): Response
+    {
+        $code=$request->code;
+        if($code==2468){
+            return $next($request);
+        }
+        else{
+            return redirect('/about');
+        }   
+    }

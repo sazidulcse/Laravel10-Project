@@ -22,16 +22,19 @@ class HomeController extends Controller
     // }
     function index(Request $request){
 
+       $password=$request->code;
        $data=[
-        ['fname'=>'sazidul', 'lname'=>'rahman','age'=>22],
-        ['fname'=>'farhan', 'lname'=>'islam','age'=>42],
-        ['fname'=>'john', 'lname'=>'doe','age'=>24],
-        ['fname'=>'joram', 'lname'=>'natad','age'=>44],
-        ['fname'=>'arif', 'lname'=>'billah','age'=>32]
-       ];
-
-       return view('myview',['users'=>$data]);
-
+              ['fname'=>$password, 'lname'=>'rahman','age'=>22],
+              ['fname'=>'farhan', 'lname'=>'islam','age'=>42],
+              ['fname'=>'john', 'lname'=>'doe','age'=>24],
+              ['fname'=>'joram', 'lname'=>'natad','age'=>44],
+              ['fname'=>'arif', 'lname'=>'billah','age'=>32]
+             ];
+      
+       //       return view('myview',['users'=>$data]);
+       return view('test');
+      
+       
     }
       
     
