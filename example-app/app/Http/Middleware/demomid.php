@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ActionMiddleware
+class demomid
 {
     /**
      * Handle an incoming request.
@@ -15,18 +15,7 @@ class ActionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       $request->headers->remove('email');
-       
-        $code=$request->code;
-        if($code==2468){
-            return $next($request);
-        }
-        else{
-            return response()->json('invalid');
 
-
-       //      return redirect('/about');
-        }
-        
+        return $next($request);
     }
 }

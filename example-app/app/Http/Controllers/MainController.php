@@ -27,6 +27,12 @@ class MainController extends Controller
         return view('about');
     }
 
+    function test(Request $request){
+
+       return $request->header();
+       
+    }
+
 
 
 

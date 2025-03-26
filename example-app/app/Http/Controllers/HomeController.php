@@ -31,11 +31,13 @@ class HomeController extends Controller
               ['fname'=>'arif', 'lname'=>'billah','age'=>32]
              ];
       
-       //       return view('myview',['users'=>$data]);
-       return view('test');
+          return view('myview',['users'=>$data]);
+    
       
        
     }
+
+    
       
     
 }

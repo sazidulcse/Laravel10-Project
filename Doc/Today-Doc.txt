@@ -1,0 +1,17 @@
+
+#Today Doc Middleware:
+
+Groutp Middleware::
+Route::middleware(['person'])->group(function(){
+       Route::get('/log/{code}',[HomeController::class,'index']);
+       Route::get('/about/{code}',[MainController::class,'About']);
+       
+});
+
+
+#Change Headers Informantion To middleware
+
+       $request->headers->add(['email'=>'sazidulrahman@gmail.com']);
+       $request->headers->remove('email');
+       $request->headers->replace(['email'=>'sazidulrahman@gmail.com']);
+
